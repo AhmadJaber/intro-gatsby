@@ -43,3 +43,32 @@ Also gatsby `Link` comes with prefetching resources in background & other fancy 
 
 - jason Lengstorf [repo](https://github.com/FrontendMasters/gatsby-intro)
 - [gatsby_workflow](https://jlengstorf.github.io/presentations/workshop-gatsby-mdx-blog/#/)
+
+### Style with Emotion(css in js)
+
+`npm i @emotion/react @emotion/styled gatsby-plugin-emotion`
+
+- @emotion/react, will give us access to global styles & css props
+- @emotion/styled, give us `styled-components` kind of interface
+- gatsby-plugin-emotion, add the things nedded for gatsby to build with emotion.
+
+_add global styles using emotion_
+
+- create a wrapper component, where we pass the `children` & apply global styles
+- `import {Global, css} from '@emotion/core`,
+- where `Global` is component that emotion give us to apply global styles.
+- With this component, common components like - `<Header />`, also for every page `<main>{children}</main>`
+
+**add google font in gatsby project** [gatsby-plugin-google-fonts](https://www.gatsbyjs.com/plugins/gatsby-plugin-google-fonts/?=gatsby-plugin-google-fonts)
+
+### configure gatsby plugins
+
+we need a file called `gatsby-config.js`
+
+```js
+module.export = {
+  plugins: ['gatsby-plugin-emotion'],
+};
+```
+
+Doing that gatsby knows how to use `emotion`;
