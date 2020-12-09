@@ -41,5 +41,5 @@ Also gatsby `Link` comes with prefetching resources in background & other fancy 
 
 ### Workshop Info -
 
-[repo_jason Lengstorf](https://github.com/FrontendMasters/gatsby-intro)
+[repo_jason Lengstorf](https://github.com/FrontendMasters/gatsby-intro)<space><space>
 [gatsby_workflow](https://jlengstorf.github.io/presentations/workshop-gatsby-mdx-blog/#/)
