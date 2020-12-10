@@ -27,5 +27,13 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: 'posts',
+        // required, it will look for the folder and load anything inside to the data layer.
+        path: 'posts',
+      },
+    },
   ],
 };

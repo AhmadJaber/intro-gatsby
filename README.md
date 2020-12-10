@@ -120,6 +120,33 @@ to know more [gatsby-plugin-mdx](https://www.gatsbyjs.com/plugins/gatsby-plugin-
 - If i want some interactivity, i will do the state-management stuff and interactivity in react-component, then import the component to the mdx file. Than add the component as we do in react component.
 - i also can combine html with markdown, but not recomended.
 
+### Build a blog with MDX
+
+- start by creating some posts. so create folder called `posts` outside of `src` folder. it doesn't matter where we put folder to, just make sure it can be accessable.
+- in `posts` folder, the structure will be `00-folder-name/post-name.mdx`. in `post-name.mdx` if we want some info not to show anyone we can use a term in markdown called `front-matter`, inside if we write something it will not show.
+- `slug`, means the url the page is gonna have.
+- after creating posts, to get them into gatsby, we have to use a gatsby plugin `gatsby-source-filesystem` which allow us to use local file as part of the graphql data layer.
+
+_rendering a post listing_
+
+- if i go to my `graphql-playground` i will see more `QUERIES`, one of them is `all-mdx` i have to query that.
+
+**GraphQL theory time**
+
+> graphql comes from graph theory, which is a way of describing relation between things. So, on graphql data, we see `nodes` & `edges`.
+
+> nodes - the data itself.
+> edges - describes relation between the nodes.
+
+- now get this data, and show this blog posts on home-page. to get the data i use another custom-hook.
+
+**generating post pages by programatic page generation**
+
+- we do that by creating a file next to `gatsby-config.js` named `gatsby-node.js`.
+- gatsby exposes us set of apis - browser set of apis, node set of apis & some ssr apis. Each of those named `gatsby-(api)`.
+- in this file i can export a function is the same name of one of those hooks we look for & will do whatever i want it to do at that built phase.
+- we want create page per post. for posts pages, i need a layout/template. To do that, create a folder named `templates` and create a `post` componet.
+
 ### Workshop Info -
 
 - jason Lengstorf [repo](https://github.com/FrontendMasters/gatsby-intro)
