@@ -16,5 +16,16 @@ module.exports = {
         display: 'swap',
       },
     },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        // what layout i wanna use in mdx files.
+        // require.resolve() gives the absolute path.
+        defaultLayouts: {
+          // any mdx file we load, will be loaded into layout.js template.
+          default: require.resolve('./src/components/layout.js'),
+        },
+      },
+    },
   ],
 };
