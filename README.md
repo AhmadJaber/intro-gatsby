@@ -22,6 +22,18 @@ In this workshop, learn to build blazing fast apps and websites with React using
 - Create websites quickly with performance baked in.
 - Deploy your sites for free in minutes with Netlify.
 
+### configure gatsby plugins
+
+we need a file called `gatsby-config.js`
+
+```js
+module.export = {
+  plugins: ['gatsby-plugin-emotion'],
+};
+```
+
+Doing that gatsby knows how to use `emotion`;
+
 ##### Pages & links
 
 Anything created in `src/pages` directory will be treated as a page. Like - `index.js` is `index.html` as
@@ -61,14 +73,43 @@ _add global styles using emotion_
 
 **add google font in gatsby project** [gatsby-plugin-google-fonts](https://www.gatsbyjs.com/plugins/gatsby-plugin-google-fonts/?=gatsby-plugin-google-fonts)
 
-### configure gatsby plugins
+### Gatsby & GraphQL, adding data to gatsby site using graphql.
 
-we need a file called `gatsby-config.js`
+_at first, add site metadata_
 
-```js
-module.export = {
-  plugins: ['gatsby-plugin-emotion'],
-};
+- without it browser will show only url in tab. user will have no idea what is tab about,
+  if he or she in another tab. which is not good user experience.
+- so i want to show the title & for seo purposes i will add some description.
+- go to `gatsby-config.json`, add a property `siteMetadata`, which is an object.
+- add `{title: '', description: ''}` or anything i want. This will not show anything on browser.
+- we have to use graphql to access the metadata.
+
+**GraphQL**
+To access in graphql-playground `http://localhost:8000/___graphql`.
+
+So, `graphql` at its core is way of describe the relation between types of data. we can write `query` or `mutation`
+in graphql. `query` is for getting data & `mutation` is for create, update, delete.
+
+With gatsby, gatsby doesn't do a whole lot with graphql. It will setup some default QUERIES, like -
+sitePage, sitePlugin, site etc. to acess site-metadata, using `query`
+
+```graphql
+query {
+  site {
+    siteMetadata {
+      title
+      description
+    }
+  }
+}
 ```
 
-Doing that gatsby knows how to use `emotion`;
+_now after knowing how to get the data, i want to modify the title of my site._
+
+- to do that i have to add some boilerplate, `gatsby-plugin-react-helmet, react-helmet`.
+- react-helmet, is a library which allows us to modify the head of html document in react. it allows us
+  to create title, metatags, twitter-cards, opengrah-descriptions also i can set language attribute of my
+  html tag.
+- gatsby-plugin-react-helmet, this allow us to do server side rendering with helmet. just i have to add it
+  `gatsby-config.js`.
+- create a hook, sothat i can use this siteMetadata anwhere in my app.
