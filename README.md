@@ -109,17 +109,6 @@ _now after knowing how to get the data, i want to modify the title of my site._
   `gatsby-config.js`.
 - create a hook, sothat i can use this siteMetadata anwhere in my app.
 
-### Rendering component in MDX
-
-JSX - react uses `jsx`, which gives us the ability to use `html` in javascript template.
-MDX - `mdx` gives us the ability to use react component in markdown. It lets me write JSX embedded inside markdown.
-to know more [gatsby-plugin-mdx](https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/)
-
-- to get mdx up&running `npm i gatsby-plugin-mdx @mdx-js/mdx @mdx-js/react`.
-- create a page `contact.mdx` write like markdown. This allow us to write simple `html` without setting up a react-component.
-- If i want some interactivity, i will do the state-management stuff and interactivity in react-component, then import the component to the mdx file. Than add the component as we do in react component.
-- i also can combine html with markdown, but not recomended.
-
 ### Workshop Info -
 
 - jason Lengstorf [repo](https://github.com/FrontendMasters/gatsby-intro)
