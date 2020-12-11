@@ -147,6 +147,106 @@ _rendering a post listing_
 - in this file i can export a function is the same name of one of those hooks we look for & will do whatever i want it to do at that built phase.
 - we want create page per post. for posts pages, i need a layout/template. To do that, create a folder named `templates` and create a `post` componet.
 
+**getting postdata by slug**
+
+- to get the data we have to make use of `context` property of `post.createPage({})`. we can access this from the component we assign for the `component` property.
+- so in `post.js` we can access it from `props`, `pageContext`. the data will be like -
+
+```json
+{
+  "slug": "hello-world"
+}
+```
+
+> now i can use that in my data & anything i want to configure i can pass it through.
+> Theoratically i can put the title, post, body into `context` and use it. but it gets difficult when the data becomes complecated & links between types of data.
+
+- so, recomended way would be, export a `graphql query`. one thing to understand _how to do variables in graphql_.
+- if i want to get one `mdx` file (post) from `mdx QUERY`.
+
+```graphql
+query {
+  mdx(frontmatter: { slug: { eq: "hello-world" } }) {
+    frontmatter {
+      title
+      author
+    }
+  }
+}
+```
+
+> here we are filtering, mdx nodes has a frontmatter field i wanna use that for quering, which has a slug field i wanna use that for quering. Then we can choose whether i want it to be `eq` or `ne` to the `slug` value.
+> now we can able to select a single thing.
+
+- now i need to get a variable in query, so that the quering becomes dynamic. so, we need to access the value of `pageContext` & when gatsby provides anything as context that not only available at `pageContext` but also as `graphql variable`. so final look would be -
+
+```js
+export const query = graphql`
+  query($slug: String!) {
+    mdx(frontmatter: { slug: { eq: $slug } }) {
+      frontmatter {
+        title
+        author
+      }
+      body
+    }
+  }
+`;
+```
+
+> so what will happen is because we pass this slug as `context`, graphql will set variable called `slug`.
+
+- now `body` is little funky to look at. it mdx doing something under the hood to to show it on screen. we can't drop this directly, this to work we need `MDXRenderer` from `gatsby-plugin-mdx`.
+
+- now to use that `query` data in component, so anything we query will be available as `data` in props in that component
+
+**Q&A**
+
+_i got every post in my own subfolder, is that necessary for mdx?_
+
+- no, anything i put on `posts` folder will get pulled out & read. but it is a good idea beacause i want to add images for every posts. also there are some gatsby convinience.
+
+_in this graphql query instance, i used one type of post, how will i handle when there is multiple types of posts?_
+
+- then there would be different query
+
+```graphql
+query {
+  allFile(filter: { sourceInstanceName: { eq: "posts" } }) {
+    nodes {
+      childMdx {
+        frontmatter {
+          title
+        }
+      }
+    }
+  }
+}
+```
+
+> here is showing a relation, where we looking at the files. i included the posts of `posts` folder using `gatsby-source-filesystem` where in option we added `name: 'posts'`. so i am basically saying give me everything named `posts`.
+
+> so if i want to create another post type like - docs, cars etc. i can create a folder on that name or a common pattern `content/posts`, `content/docs`. then in `gatsby-config.js`
+
+```js
+plugins: [
+  {
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      name: 'posts',
+      path: 'content/posts',
+    },
+  },
+  {
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      name: 'docs',
+      path: 'content/docs',
+    },
+  },
+];
+```
+
 ### Workshop Info -
 
 - jason Lengstorf [repo](https://github.com/FrontendMasters/gatsby-intro)
