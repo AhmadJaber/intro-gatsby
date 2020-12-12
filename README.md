@@ -296,6 +296,49 @@ query {
 > here `sharp: childImageSharp`, graphql let us modify the field name. so in returned `json` file the field-name will be `sharp`.
 > `...GatsbyImageSharpFluid_withwebp`, this is graphql fragment with gatsby helper. this will includ all the fields of `fluid`. also `_withwebp` will use `webp` format for modern browser, which is more performat & compressed.
 
+**Adding images on MDX posts**
+
+- create `images` folder for each post, now in the post-file(mdx), add this image location inside the `frontmatter`, also add `alt` for image. it is best practise to have a image-alt in everypost's frontmatter.
+- now we can access the image from graphql-query. add query for the image & alt in `usePosts` hook.
+
+```graphql
+query {
+  allMdx {
+    nodes {
+      frontmatter {
+        alt
+        image {
+          sharp: childImageSharp {
+            fluid {
+              srcSet
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+> we can add settings in `fluid`. i can get the settings options from graphql-playground or docs.
+
+```graphql
+  fluid(
+    maxWidth: 100
+    maxHeight: 100
+    duotone: {shadow: "#any", highlight: "#any"}
+  )
+```
+
+_show image in my blog post-page_
+
+- to add image in my post, as i have a relative path for the image, i can add image as i add image in markdown. but this will not work we will get a broken image, because gatsby is building this files & files are not exactly where i want them to be.
+- to solve this, we have to install a plugin `gatsby-remark-images`.
+
+remark - if i use `md` instead of `mdx` i would use `remark`. it is a markdown parser that can convert md-files into `html`. `mdx` is compatable with all the remark-plugins so with `mdx` we can use `remark` with the added benefit of using `react`.
+
+- now add `gatsby-remark-images` into the options of `gatsby-plugin-mdx`. then we will see the image in the post page. also i can see it is working with `gatsby-image`. so we have all the image-optimization.
+
 ### Workshop Info -
 
 - jason Lengstorf [repo](https://github.com/FrontendMasters/gatsby-intro)
