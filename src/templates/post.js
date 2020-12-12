@@ -5,6 +5,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import Layout from '../components/layout';
 import { ReadLink } from '../components/read-link';
 
+// query for getting the data for the post-page, by slug value.
 export const query = graphql`
   query($slug: String!) {
     mdx(frontmatter: { slug: { eq: $slug } }) {

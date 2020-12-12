@@ -247,6 +247,55 @@ plugins: [
 ];
 ```
 
+### Adding a hero image box
+
+**optimizing images with sharp**
+
+- The hero image, if we check in network tab in devtools, browser is downloading a big image even for mobile size. common solution is to create bunch of different sizes & writing some media-query.
+- but in gatsby will handle that, i have to add some plugins. `gatsby-transformer-sharp`, `gatsby-plugin-sharp`, `gatsby-background-image`.
+
+sharp - sharp is third party library that does image transformation. High performance Node.js image processing.
+gatsby-plugin-sharp - install sharp, enable it to do various things.
+gatsby-transformer-sharp - it will look for nodes that are images & apply image transformation.
+
+> transformer in gatsby will look for data & transform them into another.
+
+- create a folder `images` alongside `posts`, configure it with `gatsby-source-filesystem` and move the background-img there. now gatsby gonna look inside this images-folder & as `sharp` plugins will do stuff to those images.
+
+```graphql
+query {
+  allFile(filter: { sourceInstanceName: { eq: "images" } }) {
+    nodes {
+      relativePath
+      childImageSharp {
+        fluid {
+          srcSet
+        }
+      }
+    }
+  }
+}
+```
+
+> so here we will find, gatsby took that image & made an array of that image with different sizes.
+
+`if it is a single image, we can query this way - `
+
+```graphql
+query {
+  image: file(relativePath: { eq: "steijn-leijzer-mn.jpg" }) {
+    sharp: childImageSharp {
+      fluid {
+        ...GatsbyImageSharpFluid_withwebp
+      }
+    }
+  }
+}
+```
+
+> here `sharp: childImageSharp`, graphql let us modify the field name. so in returned `json` file the field-name will be `sharp`.
+> `...GatsbyImageSharpFluid_withwebp`, this is graphql fragment with gatsby helper. this will includ all the fields of `fluid`. also `_withwebp` will use `webp` format for modern browser, which is more performat & compressed.
+
 ### Workshop Info -
 
 - jason Lengstorf [repo](https://github.com/FrontendMasters/gatsby-intro)

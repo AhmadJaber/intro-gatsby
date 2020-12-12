@@ -7,6 +7,8 @@ module.exports = {
   plugins: [
     'gatsby-plugin-emotion',
     'gatsby-plugin-react-helmet',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
@@ -33,6 +35,14 @@ module.exports = {
         name: 'posts',
         // required, it will look for the folder and load anything inside to the data layer.
         path: 'posts',
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: 'images',
+        // required, it will look for the folder and load anything inside to the data layer.
+        path: 'images',
       },
     },
   ],
