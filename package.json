@@ -10,7 +10,8 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "analyze": "cross-env ANALYZE_BUNDLE_SIZE=true gatsby build"
   },
   "dependencies": {
     "@emotion/react": "^11.1.2",
@@ -25,6 +26,7 @@
     "gatsby-plugin-mdx": "^1.6.0",
     "gatsby-plugin-react-helmet": "^3.6.0",
     "gatsby-plugin-sharp": "^2.10.1",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.18",
     "gatsby-remark-images": "^3.7.1",
     "gatsby-source-filesystem": "^2.7.0",
     "gatsby-source-instagram": "^0.9.0",

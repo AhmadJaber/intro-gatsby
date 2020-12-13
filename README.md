@@ -414,6 +414,22 @@ _all third-party sources needs a plugin?_
 - [Gatsby without GraphQL](https://www.gatsbyjs.com/docs/using-gatsby-without-graphql/)
 - [Why Gatsby Uses GraphQL](https://www.gatsbyjs.com/docs/why-gatsby-uses-graphql/)
 
+### Analyze & deploy
+
+**analyzing gatsby bundle sizes**
+
+- The risk of using bundlers like - `webpack`, `parcel` etc. is accidentally including whole bunch of stuff that i am not using.
+- to solve this problem, first we have to check actually we have this problem or not. to check that install `gatsby-plugin-webpack-bundle-analyser-v2`. this plugin is from `webpack-bundle-analyzer`.
+  we have to configure some minor things.
+- in `package.json` add an script - "analyze": "cross-env ANALYZE_BUNDLE_SIZE=true gatsby build". when i run this build will happen and then a report file will be opened in browser.
+- The report shows everything being used. we can see the report and analyze are we including anything we shouldn't be.
+  > one of the example can be `lodash` or `moment`. if i am using one or two lodash function, if i include them wrong way, the whole lodash will load. so loading a function from `loadash` i have to be very careful.
+
+**package.json scripts**
+build - builds our production site, put everything in the public folder.
+serve - to see the built site, to see the site after `build`.
+analyze - analyze the gatsby bundle size.
+
 > source plugins are plentiful in gatsby, gatsby has source-plugin for all most all `cms` & also others.
 
 ### Workshop Info -
