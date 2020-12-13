@@ -442,6 +442,7 @@ _is there anything for crud screens or kind of dynamically generated data?_
 **deployment**
 
 - deploy in `Netlify`.
+- cool thing about `Netlify` is it will automatically build a deploy preview for all pull-request.
 
 **package.json scripts**
 
