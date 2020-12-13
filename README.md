@@ -444,9 +444,10 @@ _is there anything for crud screens or kind of dynamically generated data?_
 - deploy in `Netlify`.
 
 **package.json scripts**
-build - builds our production site, put everything in the public folder.
-serve - to see the built site, to see the site after `build`.
-analyze - analyze the gatsby bundle size.
+
+- build, builds our production site, put everything in the public folder.
+- serve, to see the built site, to see the site after `build`.
+- analyze, analyze the gatsby bundle size.
 
 > source plugins are plentiful in gatsby, gatsby has source-plugin for all most all `cms` & also others.
 > a gatsby site works javascript disabled, works offline with the plugins & only takes a few `kb` to download.
