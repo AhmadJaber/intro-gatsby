@@ -24,7 +24,7 @@ const TextBox = styled('div')`
   margin-top: 0;
 
   h1 {
-    text-shadow: 1px 1px 3px #eeddff66;
+    text-shadow: 1px 1px 3px #581b98;
     font-size: 2.25rem;
   }
   p,
