@@ -425,12 +425,31 @@ _all third-party sources needs a plugin?_
 - The report shows everything being used. we can see the report and analyze are we including anything we shouldn't be.
   > one of the example can be `lodash` or `moment`. if i am using one or two lodash function, if i include them wrong way, the whole lodash will load. so loading a function from `loadash` i have to be very careful.
 
+**Q&A**
+_what is pre-fetch?_
+
+> prefetch is browser thing. it is built in browser technology. `prefetch`, `preload`, `preconenct` each of this are hints for the browser, which says to browser - 'hey i am going to load this page or i am going to available this resources'. in doing so browser makes the call. this hints are low priority, so if the data saver turned browser will not even try.
+
+_can u explain, how graphql schema genenrated when we install a gatsby plugin? is it possible to modify the schema?_
+
+> yes & yes. if i go to `gatsby node apis` and read the `sourceNodes` topic, i can see that works.
+> for changing graphql-schema, [Customizing GraphQL](https://www.gatsbyjs.com/docs/schema-customization/)
+
+_is there anything for crud screens or kind of dynamically generated data?_
+
+> dashboard with gatsby. anything u can build in build time we encourage u to do so. if anything that u shouldn't build ahead of time or hard to build like - `user-data`, i wanna do that asynchronously. for that we can use `gatsby dynamic routing`.
+
+**deployment**
+
+- deploy in `Netlify`.
+
 **package.json scripts**
 build - builds our production site, put everything in the public folder.
 serve - to see the built site, to see the site after `build`.
 analyze - analyze the gatsby bundle size.
 
 > source plugins are plentiful in gatsby, gatsby has source-plugin for all most all `cms` & also others.
+> a gatsby site works javascript disabled, works offline with the plugins & only takes a few `kb` to download.
 
 ### Workshop Info -
 
