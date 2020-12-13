@@ -339,6 +339,83 @@ remark - if i use `md` instead of `mdx` i would use `remark`. it is a markdown p
 
 - now add `gatsby-remark-images` into the options of `gatsby-plugin-mdx`. then we will see the image in the post page. also i can see it is working with `gatsby-image`. so we have all the image-optimization.
 
+### handle third-party data with gatsby
+
+**loading posts from instagram**
+
+- i wanna grab any instagram account i want, i will be able to show the posts. i am gonna use the same graphql layer to get that.
+- to do that, i have to install a plugin `gatsby-source-instagram`. i have to configure it in `gatsby-config.js`. read the plugin docs carefully beacause there are four ways to get information from instagram.
+- i am gonna use `Public scraping for posts`. the graphql query would be -
+
+```graphql
+query {
+  allInstaNode {
+    nodes {
+      localFile {
+        childImageSharp {
+          fluid {
+            srcSet
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+> here we can see as `gatsby-plugin-sharp`, `gatsby-transformer-sharp` are installed, the instagram images will be optimized too. awesome!!!.
+
+- to show the data, create a component & get the data from graphql create a custom-hook.
+
+**Q&A**
+
+_even theough you are giving the source images from instagram, u are getting them on the server side and doing all the transformation then writing the images on static folder and them serving them up. that works here because we r running a devserver so we are getting recent 12 posts. will it be automatically updated?_
+
+> It will update every time the site builts. if i want this to always be up to date, i could use webhooks(instagram doesn't suport it) or i can have `zappier` every time a new instagram post to trigger a webhook that rebuild my gatsby site. that is the most standard way, which is use webhooks or zappier to retrigger a built when the data changes.
+
+_what if a post contains multiple photos, how to handle it?_
+
+> in `mdx` it doesn't matter, i can put multiple images in `mdx` file. as `gatsby-remark-images` is installed it will take care of the image.
+> if the images are embeded(from graphql) in using regular `gatsby-image`, then i just setup multiple queries. so if i need multiple images, i can set multiple query with differen alias.
+
+```graphql
+query {
+  imageOne: file(relativePath: { regex: "/braz/" }) {
+    relativePath
+    childImageSharp {
+      fluid {
+        srcSet
+      }
+    }
+  }
+  imageTwo: file(relativePath: { regex: "/tyler/" }) {
+    relativePath
+    childImageSharp {
+      fluid {
+        srcSet
+      }
+    }
+  }
+}
+```
+
+_what about handeling video?_
+
+> gatsby has plugins for video hosting platforms like - `youtube`, `vimeo` or `cloudnary for video hosting`. but gatsby doesn't optimize `mp4`. because the platforms do that.
+
+_how about other data sources like - wordpress?_
+
+> gatsby has a source plugin `gatsby-source-wordpress` for wordpress. it hooks into wordpress rest api.
+
+_all third-party sources needs a plugin?_
+
+> the don't need one. if i want to use axios i can absolutely do that. but data-sources is easier when it's done with plugins because that gonna give us some graphql convinience. there is a doc for that -
+
+- [Gatsby without GraphQL](https://www.gatsbyjs.com/docs/using-gatsby-without-graphql/)
+- [Why Gatsby Uses GraphQL](https://www.gatsbyjs.com/docs/why-gatsby-uses-graphql/)
+
+> source plugins are plentiful in gatsby, gatsby has source-plugin for all most all `cms` & also others.
+
 ### Workshop Info -
 
 - jason Lengstorf [repo](https://github.com/FrontendMasters/gatsby-intro)
